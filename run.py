@@ -201,7 +201,7 @@ if "__main__" == __name__:
     else:
         dtype = torch.float32
         variant = None
-
+    print(checkpoint_path)
     pipe: MarigoldPipeline = MarigoldPipeline.from_pretrained(
         checkpoint_path, variant=variant, torch_dtype=dtype
     )

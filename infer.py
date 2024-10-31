@@ -115,6 +115,7 @@ if "__main__" == __name__:
     args = parser.parse_args()
 
     checkpoint_path = args.checkpoint
+    print(checkpoint_path)
     dataset_config = args.dataset_config
     base_data_dir = args.base_data_dir
     output_dir = args.output_dir
