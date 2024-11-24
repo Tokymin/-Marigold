@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 .idea
+Saved_metrics_data
+Saved_depth_data
+Saved_visulaization
 # C extensions
 *.so
 checkpoint

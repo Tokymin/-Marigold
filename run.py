@@ -29,6 +29,7 @@ from PIL import Image
 from tqdm.auto import tqdm
 
 from marigold import MarigoldPipeline
+from config.config_test import hyperparameters as param
 
 EXTENSION_LIST = [".jpg", ".jpeg", ".png"]
 
@@ -183,7 +184,9 @@ if "__main__" == __name__:
     rgb_filename_list = [
         f for f in rgb_filename_list if os.path.splitext(f)[1].lower() in EXTENSION_LIST
     ]
-    rgb_filename_list = sorted(rgb_filename_list)
+    start = param["start"]
+    num_images_to_load = param["num_images_to_load"]  # Example number, change as needed
+    rgb_filename_list = sorted(rgb_filename_list)[start:num_images_to_load]
     n_images = len(rgb_filename_list)
     if n_images > 0:
         logging.info(f"Found {n_images} images")
