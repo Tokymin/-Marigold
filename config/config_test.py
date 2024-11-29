@@ -8,7 +8,8 @@ hyperparameters = {
     # -----------重要基本参数-----------
     'model_name': 'marigold-EndoSlam-Unity',
     'checkpoint_path': 'lightning_logs/version_4/checkpoints/epoch=932-step=506619.ckpt',
-    'CUDA': 1,
+    'CUDA': "1",
+    'metrics_path': 'Saved_metrics_data/',
     'is_save_metric': True,
     # -----------数据集相关参数-----------
     'gt_folder': r"/mnt/share/toky/Datasets/Endoslam_Unity_Colon/Pixelwise_Depths/",

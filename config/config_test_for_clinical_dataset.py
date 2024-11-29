@@ -14,7 +14,7 @@ hyperparameters = {
     'CUDA': "1",
     'is_save_metric': True,
     # -----------数据集相关参数-----------
-    'input_folder': '/mnt/share/toky/Datasets/EndoDepth-Diffusion/EndoSlam-Phantom/eval/',
+    'input_folder': '/mnt/share/toky/Datasets/EndoDepth-Diffusion/EndoSlam-Phantom/eval/',#EndoSlam-Phantom
     # ['/mnt/share/toky/Datasets/EndoDepth-Diffusion/EndoMapper-Clinical-Seq/eval/',
     # '/mnt/share/toky/Datasets/EndoDepth-Diffusion/EndoMapper-Clinical-Seq/eval/',
     # '/mnt/share/toky/Datasets/ControlNet_Dataset/test2171/dpt_predictit_depth/',

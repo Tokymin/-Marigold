@@ -28,7 +28,13 @@ def calculate_ssim(imageA, imageB):
 def calculate_edge_consistency(imageA, imageB):
     edgesA = cv2.Canny(imageA, 100, 200)
     edgesB = cv2.Canny(imageB, 100, 200)
-    consistency = np.mean(np.abs(edgesA - edgesB))
+    # 计算每个像素点的归一化差异
+    diff = np.abs(edgesA - edgesB)
+    max_values = np.maximum(edgesA, edgesB)
+    # 归一化差异
+    normalized_diff = diff / (max_values + 1e-6)  # 加一个小的常数避免除零错误
+    # 计算平均归一化差异并得到 EC 指标
+    consistency = 1 - np.mean(normalized_diff)
     return consistency
 
 

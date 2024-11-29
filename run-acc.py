@@ -22,6 +22,7 @@ import argparse
 import logging
 import os
 from glob import glob
+from noise_schedule import NoiseScheduleVP, StepOptim  # 假设 NoiseScheduleVP 和 StepOptim 定义在 noise_schedule.py 文件中
 
 import numpy as np
 import torch
@@ -227,6 +228,16 @@ if "__main__" == __name__:
     logging.info(
         f"scale_invariant: {pipe.scale_invariant}, shift_invariant: {pipe.shift_invariant}"
     )
+    # 1. 定义噪声调度器 (NoiseScheduleVP) 和优化器 (StepOptim)
+    ns = NoiseScheduleVP(schedule="discrete", betas=torch.linspace(0.0001, 0.02, denoise_steps))
+    step_optim = StepOptim(ns)
+
+    # 2. 使用优化器生成采样的时间步长序列
+    N = denoise_steps // 5  # 将时间步数减少为三分之一
+    eps = 1e-3  # 最小时间值，根据经验选择
+    initType = 'quad'  # 可以尝试不同的初始时间步方案
+    t_res, lambda_res = step_optim.get_ts_lambdas(N, eps, initType)
+    pipe.scheduler.timesteps = t_res  # 直接设置调度器的时间步长序列
 
     # Print out config
     logging.info(
@@ -312,7 +323,7 @@ if "__main__" == __name__:
         # 将模型加载时间写入第一个位置，后面跟随推理时间数据
         df_final = pd.concat([df_model_load_time, df_inference_time], ignore_index=True)
         output_excel_path = param["metrics_path"] + param["model_name"] + "/" + param[
-            "model_name"] + "-InferenceTimes.xlsx"
+            "model_name"] + "-InferenceTimes-Acc.xlsx"
         # 合并两个 DataFrame，确保两者写入同一个 Excel 文件
         # 将合并后的数据写入 Excel 文件
         with pd.ExcelWriter(output_excel_path) as writer:
